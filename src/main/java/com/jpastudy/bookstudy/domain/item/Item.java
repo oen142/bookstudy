@@ -1,7 +1,7 @@
 package com.jpastudy.bookstudy.domain.item;
 
 import com.jpastudy.bookstudy.domain.Category;
-import com.jpastudy.bookstudy.exception.NotiEnoughStockException;
+import com.jpastudy.bookstudy.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -47,7 +47,7 @@ public abstract class Item {
         int restStock = this.stockQuantity - quantity;
 
         if(restStock<0){
-            throw new NotiEnoughStockException("need more stock");
+            throw new NotEnoughStockException("need more stock");
         }
         this.stockQuantity = restStock;
     }

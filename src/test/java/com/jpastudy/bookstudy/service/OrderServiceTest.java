@@ -6,9 +6,8 @@ import com.jpastudy.bookstudy.domain.Order;
 import com.jpastudy.bookstudy.domain.OrderStatus;
 import com.jpastudy.bookstudy.domain.item.Book;
 import com.jpastudy.bookstudy.domain.item.Item;
-import com.jpastudy.bookstudy.exception.NotiEnoughStockException;
+import com.jpastudy.bookstudy.exception.NotEnoughStockException;
 import com.jpastudy.bookstudy.repository.OrderRepository;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 
 import static org.junit.Assert.*;
 
@@ -70,7 +68,7 @@ public class OrderServiceTest {
         return member;
     }
 
-    @Test(expected = NotiEnoughStockException.class)
+    @Test(expected = NotEnoughStockException.class)
     public void 주문주문_재고수량초과() throws Exception{
         //given
         Member member = createMember();

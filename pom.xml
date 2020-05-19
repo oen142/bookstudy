@@ -63,6 +63,12 @@
             <artifactId>p6spy-spring-boot-starter</artifactId>
             <version>1.5.6</version>
         </dependency>
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-hibernate5 &ndash;&gt;
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-hibernate5</artifactId>
+        </dependency>-->
+
     </dependencies>
 
     <build>
