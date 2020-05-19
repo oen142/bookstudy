@@ -15,7 +15,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-public class ItemContoller {
+public class ItemController {
 
     private final ItemService itemService;
 
