@@ -1,5 +1,6 @@
 package com.jpastudy.bookstudy;
 
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -11,10 +12,10 @@ public class BookstudyApplication {
         SpringApplication.run(BookstudyApplication.class, args);
     }
 
-    /*@Bean
+    @Bean
     Hibernate5Module hibernate5Module(){
         Hibernate5Module hibernate5Module = new Hibernate5Module();
-        hibernate5Module.configure(Hibernate5Module.Feature.FORCE_LAZY_LOADING , true);
+    //    hibernate5Module.configure(Hibernate5Module.Feature.FORCE_LAZY_LOADING , true);
         return hibernate5Module;
-    }*/
+    }
 }

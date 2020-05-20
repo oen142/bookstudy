@@ -1,5 +1,6 @@
 package com.jpastudy.bookstudy.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jpastudy.bookstudy.domain.item.Item;
 import lombok.AccessLevel;
 import lombok.Getter;

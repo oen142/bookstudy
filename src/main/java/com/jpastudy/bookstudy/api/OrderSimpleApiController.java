@@ -5,6 +5,10 @@ import com.jpastudy.bookstudy.domain.Order;
 import com.jpastudy.bookstudy.domain.OrderStatus;
 import com.jpastudy.bookstudy.repository.OrderRepository;
 import com.jpastudy.bookstudy.repository.OrderSearch;
+import com.jpastudy.bookstudy.repository.order.query.OrderQueryDto;
+import com.jpastudy.bookstudy.repository.order.simplequery.OrderSimpleQueryDto;
+import com.jpastudy.bookstudy.repository.order.simplequery.OrderSimpleQueryRepository;
+import com.jpastudy.bookstudy.service.query.OrderQueryService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +18,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.*;
 
 /*
 * xToOne(ManyToOne ,OneToOne)
@@ -27,6 +30,7 @@ import static java.util.stream.Collectors.*;
 public class OrderSimpleApiController {
 
     private final OrderRepository orderRepository;
+    private final OrderSimpleQueryRepository orderSimpleQueryRepository;
 
     @GetMapping("/api/v1/simple-orders")
     public List<Order> ordersV1(){
@@ -40,13 +44,25 @@ public class OrderSimpleApiController {
     }
     @GetMapping("/api/v2/simple-orders")
     public List<SimpleOrderDto> ordersV2(){
-        List<Order> orders = orderRepository.findAllByString(new OrderSearch());
-        return orders.stream()
+        List<Order> orders = orderRepository.findAllByCriteria(new OrderSearch());
+        List<SimpleOrderDto> result = orders.stream()
                 .map(SimpleOrderDto::new)
-                .collect(toList());
+                .collect(Collectors.toList());
 
-
+        return result;
     }
+    private final OrderQueryService orderQueryService;
+    @GetMapping("/api/v3/simple-orders")
+    public List<OrderQueryService.OrderDto> ordersV3(){
+
+        return orderQueryService.ordersV3();
+    }
+
+    @GetMapping("/api/v4/simple-orders")
+    public List<OrderSimpleQueryDto> ordersV4() {
+        return orderSimpleQueryRepository.findOrderDtos();
+    }
+
     @Data
     static class SimpleOrderDto{
         private Long orderId;
@@ -57,10 +73,10 @@ public class OrderSimpleApiController {
 
         public SimpleOrderDto(Order order) {
             orderId = order.getId();
-            name = order.getMember().getName();
+            name = order.getMember().getName(); //LAZY 초기화
             orderDate = order.getOrderDate();
             orderStatus = order.getStatus();
-            address = order.getDelivery().getAddress();
+            address = order.getDelivery().getAddress(); // LAZY 초기화
         }
     }
 

@@ -1,10 +1,12 @@
 package com.jpastudy.bookstudy.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.aspectj.weaver.ast.Or;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -30,6 +32,7 @@ public class Order {
     private Member member;
 
 
+    @BatchSize(size = 1000)
     @OneToMany(mappedBy = "order" , cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
@@ -79,7 +82,7 @@ public class Order {
     * */
     public void cancel(){
         if(delivery.getStatus() == DeliveryStatus.COMP){
-            throw  new IllegalStateException("이미 배송이 완료된 상품은 취소가 불가능합니다.");
+            throw  new IllegalStateException("이미 배송이 완료된 상품은 취소가 불가능 합니다.");
         }
 
         this.setStatus(OrderStatus.CANCEL);
